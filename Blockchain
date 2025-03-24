@@ -13,11 +13,13 @@ class Block:
         block_string = f"{self.index}{self.timestamp}{self.data}{self.previous_hash}"
         return hashlib.sha256(block_string.encode()).hexdigest()
 
-# Creating the first block (Genesis Block)
+# Create genesis block
 genesis_block = Block(0, "0", "First Block")
-print("Genesis Block:")
-print("Index:", genesis_block.index)
-print("Timestamp:", genesis_block.timestamp)
-print("Data:", genesis_block.data)
-print("Previous Hash:", genesis_block.previous_hash)
-print("Hash:", genesis_block.hash)
+
+# Create subsequent blocks
+block2 = Block(1, genesis_block.hash, "Second Block")
+block3 = Block(2, block2.hash, "Third Block")
+
+# Print block details
+for block in [genesis_block, block2, block3]:
+    print(f"Block {block.index} - Hash: {block.hash} - Previous Hash: {block.previous_hash}")
